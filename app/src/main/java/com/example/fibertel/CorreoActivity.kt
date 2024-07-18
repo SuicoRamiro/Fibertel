@@ -36,7 +36,7 @@ class CorreoActivity : AppCompatActivity() {
             // Apply the insets as padding to the view
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 
-            // Return the insets
+
             insets
         }
     }
