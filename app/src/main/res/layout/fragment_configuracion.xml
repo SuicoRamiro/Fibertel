@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E3E3E3"
+    tools:context=".fragments.ConfiguracionFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:text="Mi cuenta"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_NombreConfiguracion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Nombres y apellidos"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="15dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_corners"
+        android:padding="16dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            android:text="Configuración"
+            android:background="@color/white"
+            android:textStyle="bold"
+            android:textColor="#009AA8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Opción: Información personal -->
+        <LinearLayout
+            android:id="@+id/opcion_InformacionPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:layout_marginVertical="5dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/icon_informacion_personal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_informacion_personal"
+            android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_informacion_personal"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Información personal"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:textSize="18dp"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+        <!-- Opción: Escanear un nuevo QR -->
+        <LinearLayout
+            android:id="@+id/opcion_Escaner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:layout_marginVertical="5dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/icon_escanear_qr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_escanear_qr"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_escanear_qr"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Escanear un nuevo QR"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:textSize="18dp"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+        <!-- Opción: Eliminar cuenta -->
+        <LinearLayout
+            android:id="@+id/opcion_EliminarCuenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:layout_marginVertical="5dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/icon_eliminar_cuenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_eliminar_cuenta"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_eliminar_cuenta"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Eliminar cuenta"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:textSize="18dp"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
