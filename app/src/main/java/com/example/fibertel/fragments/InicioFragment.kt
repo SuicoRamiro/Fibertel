@@ -22,6 +22,11 @@ class InicioFragment : Fragment() {
 
         val btnVerMas = view.findViewById<ImageButton>(R.id.icon_info_balance)
 
+
+
+
+
+
         btnVerMas.setOnClickListener {
             mostrarDialogoBalanceCC()
         }
