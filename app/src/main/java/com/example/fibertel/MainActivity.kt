@@ -14,6 +14,7 @@ import com.example.fibertel.fragments.SoporteFragment
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

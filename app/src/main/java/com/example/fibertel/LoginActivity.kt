@@ -6,8 +6,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
 
@@ -34,22 +35,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun fetchUserData(dni: String) {
-        val url = "https://www.cloud.wispro.co/api/v1/clients?national_identification_number_eq=$dni"
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(url)
-            .header("Authorization", "2865daf0-f236-46cf-b3c9-5ef541183a31")
-            .build()
+        val endpoint = ApiEndpoints.CLIENTS_BY_DNI + dni
+        val request = ApiClient.createRequest(endpoint)
 
-        client.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
+        ApiClient.getClient().newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
                 runOnUiThread {
                     showMessage("Error al obtener los datos del usuario")
                 }
             }
 
-            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+            override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) {
                     runOnUiThread {
                         showMessage("Error en la respuesta del servidor")
