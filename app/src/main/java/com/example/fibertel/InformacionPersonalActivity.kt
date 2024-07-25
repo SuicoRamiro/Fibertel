@@ -25,19 +25,16 @@ class InformacionPersonalActivity : AppCompatActivity() {
         tvIdentificacion = findViewById(R.id.tv_IdentificacionInformacion)
 
         // Recupera el usuario almacenado en UserManager
-        val user = UserManager.currentUser
-        val nombre = UserManager.nombre
-        val email = UserManager.email
-        val direccion = UserManager.direccion
-        val telefono = UserManager.telefono
-        val identificacionNacional = UserManager.identificacionNacional
+        val userManager = UserManager(this)
+        val user = userManager.currentUser
+
         // Verifica si hay un usuario y actualiza los TextViews
         user?.let {
-            tvNombre.text = "$nombre"
-            tvEmail.text = "$email"
-            tvTelefono.text = "$telefono"
-            tvDireccion.text = "$direccion"
-            tvIdentificacion.text = "$identificacionNacional"
+            tvNombre.text = it.name
+            tvEmail.text = it.email
+            tvTelefono.text = it.phone
+            tvDireccion.text = it.address
+            tvIdentificacion.text = it.nationalIdentificationNumber
         }
 
         // Configura el botón de retroceso

@@ -21,17 +21,13 @@ class LoginQRActivity : AppCompatActivity() {
     private lateinit var qrScanLauncher: ActivityResultLauncher<Intent>
     private var linkMobileLogin: String? = null
     private lateinit var tvMessage: TextView
-    private var userId: String? = null
-    private var nombre: String? = null
-    private var correo: String? = null
-    private var direccion: String? = null
-    private var telefono: String? = null
-    private var identificacionNacional: String? = null
+    private var userManager: UserManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_qractivity)
 
+        userManager = UserManager(this)
         tvMessage = findViewById(R.id.tvMessage)
 
         val dni = intent.getStringExtra("DNI") ?: ""
@@ -77,13 +73,18 @@ class LoginQRActivity : AppCompatActivity() {
                 response.body()?.string()?.let { jsonString ->
                     val jsonObject = JSONObject(jsonString).getJSONArray("data").getJSONObject(0)
                     linkMobileLogin = jsonObject.getString("link_mobile_login")
-                    userId = jsonObject.getString("id")
-                    UserManager.nombre = jsonObject.getString("name")
-                    UserManager.email = jsonObject.getString("email")
-                    UserManager.id = jsonObject.getString("id")
-                    UserManager.telefono = jsonObject.getString("phone_mobile")
-                    UserManager.direccion = jsonObject.getString("address")
-                    UserManager.identificacionNacional = jsonObject.getString("national_identification_number")
+
+                    val user = User(
+                        id = jsonObject.getString("id"),
+                        name = jsonObject.getString("name"),
+                        email = jsonObject.getString("email"),
+                        phone = jsonObject.getString("phone_mobile"),
+                        address = jsonObject.getString("address"),
+                        nationalIdentificationNumber = jsonObject.getString("national_identification_number"),
+                        linkMobileLogin = linkMobileLogin!!
+                    )
+
+                    userManager?.currentUser = user
                 }
             }
         })
@@ -101,49 +102,17 @@ class LoginQRActivity : AppCompatActivity() {
 
     private fun compareUrls(scannedUrl: String) {
         if (scannedUrl == linkMobileLogin) {
-            userId?.let {
-                fetchUserDetails(it)
+            val user = userManager?.currentUser
+            if (user != null) {
+                runOnUiThread {
+                    showMessage("Bienvenido ${user.name}")
+                }
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         } else {
             showMessage("URL inválida, intente nuevamente.")
         }
-    }
-
-    private fun fetchUserDetails(userId: String) {
-        val endpoint = ApiEndpoints.CLIENT_DETAILS + userId
-        val request = ApiClient.createRequest(endpoint)
-
-        ApiClient.getClient().newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-                runOnUiThread {
-                    showMessage("Error al obtener los detalles del usuario")
-                }
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful) {
-                    runOnUiThread {
-                        showMessage("Error en la respuesta del servidor")
-                    }
-                    return
-                }
-
-                val jsonString = response.body()?.string()
-                jsonString?.let {
-                    val user = Gson().fromJson(it, User::class.java)
-                    UserManager.currentUser = user
-                    runOnUiThread {
-                        val intent = Intent(this@LoginQRActivity, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                } ?: run {
-                    runOnUiThread {
-                        showMessage("Error al obtener los datos del usuario")
-                    }
-                }
-            }
-        })
     }
 
     private fun showMessage(message: String) {

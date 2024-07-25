@@ -3,16 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#45DCE1"
-    tools:context=".fragments.InicioFragment">
+    android:padding="16dp"
+    android:background="@color/white"
+    tools:context=".fragments.FacturasFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@color/black"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFacturas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="como" />
-
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/item_factura"/>
 </FrameLayout>
