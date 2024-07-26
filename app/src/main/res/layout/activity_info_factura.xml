@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+  <LinearLayout
+      android:layout_marginTop="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center_vertical">
+
+      <ImageButton
+          android:id="@+id/btn_retroceder"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_retroceder"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          android:layout_marginEnd="8dp"/>
+      <TextView
+          android:id="@+id/tvFacturaNumber"
+          android:gravity="center"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textStyle="bold"
+          android:text="Número de Factura"
+          android:textSize="27dp" />
+  </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tvFechaEmitida"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Emitida el: "
+            android:textSize="18dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_corners"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/tvFacturaBalance"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monto a pagar"
+            android:textSize="22dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_time2"
+                android:layout_marginEnd="10dp" />
+            <TextView
+                android:id="@+id/tvFechaVencimiento1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Primera F. de Vencimiento"
+                android:textSize="15dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_time"
+                android:layout_marginEnd="10dp"/>
+            <TextView
+                android:id="@+id/tvFechaVencimiento2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Segunda F. de Vencimiento"
+                android:textSize="15dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -7,5 +7,6 @@ data class Factura(
     val state: String,
     val invoice_number: String,
     val first_due_date: String,
-    val second_due_date: String
+    val second_due_date: String,
+    val issued_at: String
 )

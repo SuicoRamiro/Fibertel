@@ -79,7 +79,8 @@ class FacturasFragment : Fragment() {
                             state = jsonObject.getString("state"),
                             invoice_number = jsonObject.getString("invoice_number"),
                             first_due_date = jsonObject.getString("first_due_date"),
-                            second_due_date = jsonObject.getString("second_due_date")
+                            second_due_date = jsonObject.getString("second_due_date"),
+                            issued_at = jsonObject.getString("issued_at")
                         )
                         if (factura.state == "paid" || factura.state == "pending") {
                             fetchedFacturas.add(factura)

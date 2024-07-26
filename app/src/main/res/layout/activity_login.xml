@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="Logo"
-        android:layout_marginBottom="16dp"/>  <!-- Añade un margen inferior para espacio -->
+        android:layout_marginBottom="16dp"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

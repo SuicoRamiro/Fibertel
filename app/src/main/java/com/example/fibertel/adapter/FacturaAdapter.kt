@@ -1,3 +1,4 @@
+import android.content.Intent
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fibertel.R
+import com.example.fibertel.infoFactura
 import com.example.fibertel.model.Factura
 
 class FacturaAdapter(private val facturas: List<Factura>) : RecyclerView.Adapter<FacturaAdapter.FacturaViewHolder>() {
@@ -55,14 +57,26 @@ class FacturaAdapter(private val facturas: List<Factura>) : RecyclerView.Adapter
 
             tvAmountBalance.text = spannable
 
-            val borderColor: Int = when (factura.state) {
-                "paid" -> Color.GREEN
-                "pending" -> Color.RED
-                else -> Color.BLACK
+            val borderDrawable: Int = when (factura.state) {
+                "paid" -> R.drawable.rounded_corners_paid
+                "pending" -> R.drawable.rounded_corners_pending
+                else -> R.drawable.rounded_corners
             }
 
-            itemView.background = itemView.context.getDrawable(R.drawable.rounded_corners)
-            (itemView.background as? android.graphics.drawable.GradientDrawable)?.setStroke(2, borderColor)
+            itemView.background = itemView.context.getDrawable(borderDrawable)
+
+            itemView.setOnClickListener {
+                val context = itemView.context
+                val intent = Intent(context, infoFactura::class.java).apply {
+                    putExtra("balance", factura.balance)
+                    putExtra("issued_at", factura.issued_at)
+                    putExtra("first_due_date", factura.first_due_date)
+                    putExtra("second_due_date", factura.second_due_date)
+                    putExtra("invoice_number", factura.invoice_number)
+                }
+                context.startActivity(intent)
+            }
         }
     }
+
 }
