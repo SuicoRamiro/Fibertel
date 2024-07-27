@@ -7,7 +7,20 @@
     android:background="@color/white"
     tools:context=".fragments.InicioFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fibertel Networks"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="25dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
