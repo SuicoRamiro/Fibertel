@@ -26,6 +26,7 @@ class ConfiguracionFragment : Fragment() {
             startActivity(intent)
         }
 
+
         view.findViewById<LinearLayout>(R.id.opcion_Escaner).setOnClickListener {
             val integrator = IntentIntegrator.forSupportFragment(this)
             integrator.setPrompt("Escanear código QR")

@@ -90,6 +90,67 @@
                 android:text="Segunda F. de Vencimiento"
                 android:textSize="15dp" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/opcion_Descargar_Factura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="23dp"
+            android:layout_marginVertical="5dp"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_desc_factura"/>
+            <TextView
+                android:textColor="#009AA8"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Descargar factura"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:textColor="#009AA8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:textSize="18dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/opcion_Enviar_Comprobante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="23dp"
+            android:layout_marginVertical="10dp"
+
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_enviarcompr"/>
+            <TextView
+                android:textColor="#009AA8"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Enviar comprobante de pago"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:textColor="#009AA8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:textSize="18dp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

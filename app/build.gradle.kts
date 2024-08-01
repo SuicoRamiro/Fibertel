@@ -50,6 +50,7 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation ("androidx.activity:activity-ktx:1.6.0")
 
+    implementation ("androidx.core:core-ktx:1.10.0")
 
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

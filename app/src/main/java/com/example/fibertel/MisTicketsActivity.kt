@@ -3,6 +3,7 @@ package com.example.fibertel
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ class MisTicketsActivity : AppCompatActivity() {
 
     private lateinit var ticketAdapter: TicketAdapter
     private lateinit var userId: String
+    private lateinit var tvNoTickets: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,9 @@ class MisTicketsActivity : AppCompatActivity() {
         btnRetroceder.setOnClickListener {
             finish() // Cierra la actividad y vuelve al fragmento anterior
         }
+
+        // Inicializar el TextView de "No tickets"
+        tvNoTickets = findViewById(R.id.tv_no_tickets)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTickets)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -120,7 +125,12 @@ class MisTicketsActivity : AppCompatActivity() {
         }
 
         runOnUiThread {
-            ticketAdapter.updateTickets(tickets)
+            if (tickets.isEmpty()) {
+                tvNoTickets.visibility = TextView.VISIBLE
+            } else {
+                tvNoTickets.visibility = TextView.GONE
+                ticketAdapter.updateTickets(tickets)
+            }
         }
     }
 
@@ -144,6 +154,9 @@ class MisTicketsActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     runOnUiThread {
                         ticketAdapter.removeTicket(ticket)
+                        if (ticketAdapter.itemCount == 0) {
+                            tvNoTickets.visibility = TextView.VISIBLE
+                        }
                     }
                 } else {
                     Log.e("MisTicketsActivity", "Failed to mark ticket as resolved: ${response.message()}")
