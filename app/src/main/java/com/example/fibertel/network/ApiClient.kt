@@ -2,6 +2,7 @@ package com.example.fibertel
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 
 object ApiClient {
     private const val BASE_URL = "https://www.cloud.wispro.co/api/v1/"
@@ -16,5 +17,14 @@ object ApiClient {
             .build()
     }
 
+    fun createPatchRequest(endpoint: String, requestBody: RequestBody): Request {
+        return Request.Builder()
+            .url("$BASE_URL$endpoint")
+            .header("Authorization", API_TOKEN)
+            .patch(requestBody)
+            .build()
+    }
+
     fun getClient(): OkHttpClient = client
 }
+

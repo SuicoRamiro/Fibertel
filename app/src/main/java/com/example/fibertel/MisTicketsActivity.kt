@@ -54,13 +54,9 @@ class MisTicketsActivity : AppCompatActivity() {
     }
 
     private fun fetchTickets() {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("https://www.cloud.wispro.co/api/v1/help_desk/issues")
-            .header("Authorization", "2865daf0-f236-46cf-b3c9-5ef541183a31")
-            .build()
+        val request = ApiClient.createRequest(ApiEndpoints.TICKETS)
 
-        client.newCall(request).enqueue(object : Callback {
+        ApiClient.getClient().newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("MisTicketsActivity", "Error fetching tickets", e)
             }
@@ -135,17 +131,12 @@ class MisTicketsActivity : AppCompatActivity() {
     }
 
     private fun markTicketAsResolved(ticket: Ticket) {
-        val client = OkHttpClient()
         val requestBody = FormBody.Builder()
             .add("state", "finalized")
             .build()
-        val request = Request.Builder()
-            .url("https://www.cloud.wispro.co/api/v1/help_desk/issues/${ticket.id}")
-            .header("Authorization", "2865daf0-f236-46cf-b3c9-5ef541183a31")
-            .patch(requestBody)
-            .build()
+        val request = ApiClient.createPatchRequest("${ApiEndpoints.TICKET_DETAILS}${ticket.id}", requestBody)
 
-        client.newCall(request).enqueue(object : Callback {
+        ApiClient.getClient().newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("MisTicketsActivity", "Error marking ticket as resolved", e)
             }

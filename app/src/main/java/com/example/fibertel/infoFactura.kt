@@ -6,12 +6,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.example.fibertel.databinding.ActivityInfoFacturaBinding
+import com.example.fibertel.model.Factura
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -34,10 +36,7 @@ class infoFactura : AppCompatActivity() {
         binding = ActivityInfoFacturaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Verifica permisos de almacenamiento
         checkPermissions()
-
-        // Recupera los datos del Intent
         val balance = intent.getStringExtra("balance") ?: "Monto no disponible"
         val issuedAt = intent.getStringExtra("issued_at") ?: "Fecha no disponible"
         val firstDueDate = intent.getStringExtra("first_due_date") ?: "Fecha no disponible"
@@ -45,13 +44,11 @@ class infoFactura : AppCompatActivity() {
         val invoiceNumber = intent.getStringExtra("invoice_number") ?: "Número no disponible"
         val id = intent.getStringExtra("id")
 
-        // Mueve el parsing de las fechas a un hilo secundario
         Thread {
             val formattedIssuedAt = formatDate(issuedAt)
             val formattedFirstDueDate = formatDate(firstDueDate)
             val formattedSecondDueDate = formatDate(secondDueDate)
 
-            // Actualiza la UI en el hilo principal
             runOnUiThread {
                 binding.tvFacturaBalance.text = "Monto a pagar: $$balance"
                 binding.tvFacturaNumber.text = "Factura # $invoiceNumber"
@@ -59,24 +56,33 @@ class infoFactura : AppCompatActivity() {
                 binding.tvFechaVencimiento1.text = "Primera Fecha de Vencimiento: $formattedFirstDueDate"
                 binding.tvFechaVencimiento2.text = "Segunda Fecha de Vencimiento: $formattedSecondDueDate"
             }
+            if (balance != "0.0") {
+                binding.opcionEnviarComprobante.visibility = View.VISIBLE
+            } else {
+                binding.opcionEnviarComprobante.visibility = View.GONE
+            }
+
         }.start()
 
-        // Configura el botón de retroceso
         binding.btnRetroceder.setOnClickListener {
-            finish()  // Cierra la actividad y regresa a la anterior
+            finish()
         }
 
-        // Configura el listener para descargar la factura
         binding.opcionDescargarFactura.setOnClickListener {
             val downloadUrl = "https://www.cloud.wispro.co/api/v1/invoicing/invoices/$id/download_pdf"
             downloadInvoice(downloadUrl)
         }
+
+        binding.opcionEnviarComprobante.setOnClickListener {
+            val invoiceNumber = intent.getStringExtra("invoice_number") ?: "Número no disponible"
+            enviarCorreo(invoiceNumber)
+        }
     }
 
     private fun formatDate(inputDate: String): String {
-        val inputFormatDateTime = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" // Para fechas con tiempo
-        val inputFormatDate = "yyyy-MM-dd" // Para fechas sin tiempo
-        val outputFormat = "dd/MM/yyyy" // Formato deseado
+        val inputFormatDateTime = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        val inputFormatDate = "yyyy-MM-dd"
+        val outputFormat = "dd/MM/yyyy"
 
         return try {
             val inputFormat = if (inputDate.contains("T")) inputFormatDateTime else inputFormatDate
@@ -89,7 +95,6 @@ class infoFactura : AppCompatActivity() {
     }
 
     private fun downloadInvoice(url: String) {
-        // Verifica si ya se han concedido los permisos de almacenamiento
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             Thread {
                 val request = Request.Builder()
@@ -131,11 +136,9 @@ class infoFactura : AppCompatActivity() {
         }
     }
 
-
     private fun showDownloadNotification(filePath: String, fileName: String) {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as android.app.NotificationManager
 
-        // Crea el canal de notificación (para Android 8.0 y superior)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val channelId = "download_channel"
             val channelName = "Download Notifications"
@@ -144,7 +147,6 @@ class infoFactura : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        // Crea un Intent para abrir el archivo PDF
         val file = File(filePath)
         val fileUri = FileProvider.getUriForFile(this, "${applicationContext.packageName}.fileprovider", file)
 
@@ -153,7 +155,6 @@ class infoFactura : AppCompatActivity() {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
 
-        // Crea un PendingIntent para el Intent con FLAG_IMMUTABLE
         val pendingIntent = PendingIntent.getActivity(
             this,
             0,
@@ -164,9 +165,9 @@ class infoFactura : AppCompatActivity() {
         val notificationBuilder = android.app.Notification.Builder(this)
             .setContentTitle("$fileName Descarga")
             .setContentText("Factura: $fileName")
-            .setSmallIcon(R.drawable.ic_desc_factura) // Reemplaza con tu icono de notificación
+            .setSmallIcon(R.drawable.ic_desc_factura)
             .setAutoCancel(true)
-            .setContentIntent(pendingIntent) // Configura el PendingIntent
+            .setContentIntent(pendingIntent)
             .apply {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     setChannelId("download_channel")
@@ -175,9 +176,6 @@ class infoFactura : AppCompatActivity() {
 
         notificationManager.notify(1, notificationBuilder.build())
     }
-
-
-
 
     private fun checkPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -191,6 +189,26 @@ class infoFactura : AppCompatActivity() {
             // Permiso concedido, puedes continuar con la descarga
         } else {
             Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun enviarCorreo(numeroFactura: String) {
+        // Crear un Intent para enviar un correo
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "message/rfc822" // Define el tipo de mensaje para manejar solo aplicaciones de correo
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("proveedores@fibertel.com.pe"))
+            putExtra(Intent.EXTRA_SUBJECT, "Factura #$numeroFactura") // Incluye el número de factura en el asunto
+            putExtra(Intent.EXTRA_TEXT, "A continuación, le adjunto el comprobante de pago de la factura #$numeroFactura") // Mensaje con el número de factura
+        }
+
+        // Crear un selector para elegir entre las aplicaciones de correo disponibles
+        val chooser = Intent.createChooser(intent, "Enviar correo con")
+
+        // Verificar que hay aplicaciones que pueden manejar el Intent
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(chooser)
+        } else {
+            Toast.makeText(this, "No hay aplicaciones de correo disponibles", Toast.LENGTH_SHORT).show()
         }
     }
 }

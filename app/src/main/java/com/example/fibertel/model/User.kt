@@ -12,7 +12,6 @@ data class  User(
     @SerializedName("email")
     val email: String,
 
-    @SerializedName("phone")
     val phone: String,
 
     @SerializedName("address")

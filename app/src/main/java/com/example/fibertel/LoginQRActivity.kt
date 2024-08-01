@@ -1,5 +1,6 @@
 package com.example.fibertel
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -78,7 +79,7 @@ class LoginQRActivity : AppCompatActivity() {
                         id = jsonObject.getString("id"),
                         name = jsonObject.getString("name"),
                         email = jsonObject.getString("email"),
-                        phone = jsonObject.getString("phone_mobile"),
+                        phone = jsonObject.getString("phone"),
                         address = jsonObject.getString("address"),
                         nationalIdentificationNumber = jsonObject.getString("national_identification_number"),
                         linkMobileLogin = linkMobileLogin!!
@@ -89,6 +90,7 @@ class LoginQRActivity : AppCompatActivity() {
             }
         })
     }
+
 
     private fun scanQRCode() {
         val integrator = IntentIntegrator(this)
@@ -107,8 +109,10 @@ class LoginQRActivity : AppCompatActivity() {
                 runOnUiThread {
                     showMessage("Bienvenido ${user.name}")
                 }
+                saveLoginState(true)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         } else {
             showMessage("URL inválida, intente nuevamente.")
@@ -121,4 +125,10 @@ class LoginQRActivity : AppCompatActivity() {
             tvMessage.visibility = TextView.VISIBLE
         }
     }
+
+    private fun saveLoginState(isLoggedIn: Boolean) {
+        val sharedPreferences = getSharedPreferences("FibertelPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean("isLoggedIn", isLoggedIn).apply()
+    }
 }
+

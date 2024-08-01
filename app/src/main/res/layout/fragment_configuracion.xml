@@ -85,40 +85,6 @@
                 android:layout_marginStart="10dp"/>
         </LinearLayout>
 
-        <!-- Opción: Escanear un nuevo QR -->
-        <LinearLayout
-            android:id="@+id/opcion_Escaner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:layout_marginVertical="5dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <ImageView
-                android:id="@+id/icon_escanear_qr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_escanear_qr"
-                android:layout_marginEnd="10dp"/>
-
-            <TextView
-                android:id="@+id/tv_escanear_qr"
-                android:textColor="@color/black"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Escanear un nuevo QR"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=">"
-                android:textSize="18dp"
-                android:layout_marginStart="10dp"/>
-        </LinearLayout>
 
         <!-- Opción: Eliminar cuenta -->
         <LinearLayout
@@ -143,7 +109,7 @@
                 android:textColor="@color/black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Eliminar cuenta"
+                android:text="Cerrar sesión"
                 android:layout_weight="1"/>
 
             <TextView

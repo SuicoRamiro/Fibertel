@@ -1,5 +1,6 @@
 package com.example.fibertel.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import com.example.fibertel.InformacionPersonalActivity
+import com.example.fibertel.LoginActivity
 import com.example.fibertel.R
-import com.google.zxing.integration.android.IntentIntegrator
 
 class ConfiguracionFragment : Fragment() {
 
@@ -26,34 +28,36 @@ class ConfiguracionFragment : Fragment() {
             startActivity(intent)
         }
 
-
-        view.findViewById<LinearLayout>(R.id.opcion_Escaner).setOnClickListener {
-            val integrator = IntentIntegrator.forSupportFragment(this)
-            integrator.setPrompt("Escanear código QR")
-            integrator.setBeepEnabled(false)
-            integrator.initiateScan()
-        }
-
         view.findViewById<LinearLayout>(R.id.opcion_EliminarCuenta).setOnClickListener {
-
+            showLogoutConfirmationDialog()
         }
 
         return view
     }
-    // Manejar el resultado del escaneo de QR
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents != null) {
-                // OBetner contenido Q
-                val scannedResult = result.contents
-                // Abrir InformacionPersonalActivity y pasar el URL como extra
-                val intent = Intent(activity, InformacionPersonalActivity::class.java)
-                intent.putExtra("link_mobile_login", scannedResult)
-                startActivity(intent)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+
+    private fun showLogoutConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Cerrar sesión")
+        builder.setMessage("¿Está seguro que quiere cerrar sesión?")
+
+        builder.setPositiveButton("Aceptar") { dialog, _ ->
+            logout()
+            dialog.dismiss()
         }
+
+        builder.setNegativeButton("Rechazar") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    private fun logout() {
+        val sharedPreferences = requireActivity().getSharedPreferences("FibertelPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
+        val intent = Intent(activity, LoginActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
     }
 }

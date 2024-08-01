@@ -77,7 +77,6 @@ class ReportarProblemaActivity : AppCompatActivity() {
             }
         }
 
-        // Inicializar los EditTexts
         tituloProblema = findViewById(R.id.tituloProblema)
         descripcionProblema = findViewById(R.id.descripcionProblema)
 
@@ -90,13 +89,10 @@ class ReportarProblemaActivity : AppCompatActivity() {
         // Inicializar el botón de enviar
         val btnEnviar: Button = findViewById(R.id.botonEnviarReporte)
         btnEnviar.setOnClickListener {
-            // Obtener el texto del EditText y almacenarlo en variables de instancia
             tituloProblemaTexto = tituloProblema.text.toString()
             descripcionProblemaTexto = descripcionProblema.text.toString()
 
-            // Verificar que todos los campos estén completos antes de enviar
             if (tituloProblemaTexto.isNotEmpty() && descripcionProblemaTexto.isNotEmpty() && categoriaProblema.isNotEmpty()) {
-                // Enviar los datos del ticket al servidor
                 sendTicketToServer()
             } else {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()

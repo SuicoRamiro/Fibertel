@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +18,6 @@ import com.example.fibertel.ApiEndpoints
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
@@ -25,6 +26,7 @@ class FacturasFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var facturaAdapter: FacturaAdapter
     private val facturas = mutableListOf<Factura>()
+    private lateinit var noFacturasTextView: TextView
     private var userManager: UserManager? = null
 
     override fun onCreateView(
@@ -34,6 +36,7 @@ class FacturasFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_facturas, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerViewFacturas)
+        noFacturasTextView = view.findViewById(R.id.tv_no_facturas)
         recyclerView.layoutManager = LinearLayoutManager(context)
         facturaAdapter = FacturaAdapter(facturas)
         recyclerView.adapter = facturaAdapter
@@ -51,7 +54,7 @@ class FacturasFragment : Fragment() {
     }
 
     private fun fetchInvoices(dni: String) {
-        val endpoint = ApiEndpoints.INVOICING_byDNI + dni
+        val endpoint = ApiEndpoints.INVOICING_BY_DNI + dni
         val request = ApiClient.createRequest(endpoint)
 
         ApiClient.getClient().newCall(request).enqueue(object : Callback {
@@ -88,9 +91,16 @@ class FacturasFragment : Fragment() {
                     }
 
                     activity?.runOnUiThread {
-                        facturas.clear()
-                        facturas.addAll(fetchedFacturas)
-                        facturaAdapter.notifyDataSetChanged()
+                        if (fetchedFacturas.isEmpty()) {
+                            noFacturasTextView.visibility = View.VISIBLE
+                            recyclerView.visibility = View.GONE
+                        } else {
+                            noFacturasTextView.visibility = View.GONE
+                            recyclerView.visibility = View.VISIBLE
+                            facturas.clear()
+                            facturas.addAll(fetchedFacturas)
+                            facturaAdapter.notifyDataSetChanged()
+                        }
                     }
                 }
             }
@@ -98,7 +108,9 @@ class FacturasFragment : Fragment() {
     }
 
     private fun showMessage(message: String) {
-        // Muestra un mensaje en tu fragmento (por ejemplo, con un Toast o un TextView)
         // Implementa tu método de mostrar mensajes aquí
+        // Por ejemplo, usando un Toast
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }
+

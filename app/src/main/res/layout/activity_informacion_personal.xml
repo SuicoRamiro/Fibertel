@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F2F2F4"
     android:padding="16dp"
     tools:context=".InformacionPersonalActivity">
 
@@ -11,6 +12,7 @@
         android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#F2F2F4"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
