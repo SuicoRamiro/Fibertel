@@ -1,27 +1,45 @@
-<!-- res/layout/fragment_notificaciones.xml -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#F2F2F4"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FAFAFA"
     android:padding="16dp">
 
+    <!-- Logo en la parte superior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/logo2" />
+
+    </LinearLayout>
+
+    <!-- RecyclerView para notificaciones -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewNotifications"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp" />
 
+    <!-- Mensaje de "No Notifications" -->
     <TextView
         android:id="@+id/tv_no_notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:text="No Notifications"
         android:textSize="18sp"
         android:textColor="@android:color/darker_gray"
         android:visibility="gone" />
 
-</FrameLayout>
+</LinearLayout>

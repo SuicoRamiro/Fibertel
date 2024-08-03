@@ -152,6 +152,18 @@
                 android:text=">"
                 android:textSize="18dp" />
         </LinearLayout>
+        <ImageView
+            android:id="@+id/imagenYape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/yape"
+            android:visibility="gone"
+            android:maxWidth="300dp"
+            android:layout_marginTop="40dp"
+            android:maxHeight="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
     </LinearLayout>
 
 </LinearLayout>

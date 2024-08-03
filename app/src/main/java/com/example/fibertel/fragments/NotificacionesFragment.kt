@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fibertel.ApiClient
-import com.example.fibertel.ApiEndpoints
-import com.example.fibertel.NotificationAdapter
+import com.example.fibertel.network.ApiEndpoints
+import com.example.fibertel.adapter.NotificationAdapter
 import com.example.fibertel.R
 import com.example.fibertel.model.Ticket
 import com.example.fibertel.model.UserManager
@@ -119,9 +119,9 @@ class NotificacionesFragment : Fragment() {
     }
 
     private fun formatDate(inputDate: String): String {
-        val inputFormatDateTime = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" // Para fechas con tiempo
-        val inputFormatDate = "yyyy-MM-dd" // Para fechas sin tiempo
-        val outputFormat = "dd/MM/yyyy" // Formato deseado
+        val inputFormatDateTime = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        val inputFormatDate = "yyyy-MM-dd"
+        val outputFormat = "dd/MM/yyyy HH:mm:ss"
 
         return try {
             val inputFormat = if (inputDate.contains("T")) inputFormatDateTime else inputFormatDate

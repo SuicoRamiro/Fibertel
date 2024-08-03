@@ -1,6 +1,5 @@
-package com.example.fibertel
+package com.example.fibertel.activities
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -13,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fibertel.ApiClient
+import com.example.fibertel.R
 import com.example.fibertel.model.UserManager
 import okhttp3.Call
 import okhttp3.Callback

@@ -1,4 +1,4 @@
-package com.example.fibertel
+package com.example.fibertel.activities
 
 import android.Manifest
 import android.app.PendingIntent
@@ -6,14 +6,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.example.fibertel.R
 import com.example.fibertel.databinding.ActivityInfoFacturaBinding
-import com.example.fibertel.model.Factura
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -23,6 +27,7 @@ import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class infoFactura : AppCompatActivity() {
 
@@ -50,18 +55,48 @@ class infoFactura : AppCompatActivity() {
             val formattedSecondDueDate = formatDate(secondDueDate)
 
             runOnUiThread {
-                binding.tvFacturaBalance.text = "Monto a pagar: $$balance"
                 binding.tvFacturaNumber.text = "Factura # $invoiceNumber"
                 binding.tvFechaEmitida.text = "Emitida el: $formattedIssuedAt"
                 binding.tvFechaVencimiento1.text = "Primera Fecha de Vencimiento: $formattedFirstDueDate"
                 binding.tvFechaVencimiento2.text = "Segunda Fecha de Vencimiento: $formattedSecondDueDate"
-            }
-            if (balance != "0.0") {
-                binding.opcionEnviarComprobante.visibility = View.VISIBLE
-            } else {
-                binding.opcionEnviarComprobante.visibility = View.GONE
-            }
 
+                // Cambiar el color del texto del balance y ponerlo en negrita
+                val balanceText = "Monto a pagar: \nS/. $balance"
+                val balancePart = "S/. $balance"
+
+                val spannableString = SpannableString(balanceText)
+                val startIndex = balanceText.indexOf(balancePart)
+                val endIndex = startIndex + balancePart.length
+
+                spannableString.setSpan(
+                    StyleSpan(android.graphics.Typeface.BOLD),
+                    startIndex,
+                    endIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                if (balance != "0.0") {
+                    spannableString.setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.red)),
+                        startIndex,
+                        endIndex,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    binding.tvFacturaBalance.text = spannableString
+                    binding.opcionEnviarComprobante.visibility = View.VISIBLE
+                    binding.imagenYape.visibility = View.VISIBLE
+                } else {
+                    spannableString.setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.green)),
+                        startIndex,
+                        endIndex,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    binding.tvFacturaBalance.text = spannableString
+                    binding.opcionEnviarComprobante.visibility = View.GONE
+                    binding.imagenYape.visibility = View.GONE
+                }
+            }
         }.start()
 
         binding.btnRetroceder.setOnClickListener {
@@ -201,14 +236,8 @@ class infoFactura : AppCompatActivity() {
             putExtra(Intent.EXTRA_TEXT, "A continuación, le adjunto el comprobante de pago de la factura #$numeroFactura") // Mensaje con el número de factura
         }
 
-        // Crear un selector para elegir entre las aplicaciones de correo disponibles
-        val chooser = Intent.createChooser(intent, "Enviar correo con")
-
-        // Verificar que hay aplicaciones que pueden manejar el Intent
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(chooser)
-        } else {
-            Toast.makeText(this, "No hay aplicaciones de correo disponibles", Toast.LENGTH_SHORT).show()
-        }
+        // Crear un selector para mostrar solo aplicaciones de correo
+        val mailer = Intent.createChooser(intent, "Enviar correo utilizando:")
+        startActivity(mailer)
     }
 }

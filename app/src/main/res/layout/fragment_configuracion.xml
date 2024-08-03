@@ -5,21 +5,19 @@
     android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F2F4"
+    android:background="#FFFFFF"
     tools:context=".fragments.ConfiguracionFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fibertel Networks"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="25dp"
-            android:textStyle="bold"
-            android:textSize="25dp"/>
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/logo2"/>
     </LinearLayout>
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -44,7 +42,6 @@
 
         <TextView
             android:text="Configuración"
-            android:background="@color/white"
             android:textStyle="bold"
             android:textColor="#009AA8"
             android:layout_width="match_parent"
@@ -85,6 +82,39 @@
                 android:layout_marginStart="10dp"/>
         </LinearLayout>
 
+        <!-- Opción: Información personal -->
+        <LinearLayout
+            android:id="@+id/opcion_ServiciosDisponibles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:layout_marginVertical="5dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_servicios"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_servicios"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ver servicios disponibles"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:textSize="18dp"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
 
         <!-- Opción: Eliminar cuenta -->
         <LinearLayout

@@ -8,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
-import com.example.fibertel.MisTicketsActivity
+import com.example.fibertel.activities.MisTicketsActivity
 import com.example.fibertel.R
-import com.example.fibertel.ReportarProblemaActivity
+import com.example.fibertel.activities.ReportarProblemaActivity
 
 class SoporteFragment : Fragment() {
 
@@ -39,19 +38,17 @@ class SoporteFragment : Fragment() {
     }
 
     private fun enviarCorreo() {
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            type = "message/rfc822" // Define el tipo de mensaje para manejar solo aplicaciones de correo
-            putExtra(Intent.EXTRA_EMAIL, arrayOf("proveedores@fibertel.com.pe"))
-            putExtra(Intent.EXTRA_SUBJECT, "Consulta de usuario")
-            putExtra(Intent.EXTRA_TEXT, "Hola, necesito ayuda con...")
-        }
+        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("proveedores@fibertel.com.pe"))
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Consulta de usuario")
+        intent.putExtra(Intent.EXTRA_TEXT, "Hola, necesito ayuda con...")
 
-        val chooser = Intent.createChooser(intent, "Enviar correo con")
+        val gmailIntent = Intent.createChooser(intent, "Enviar correo con")
+        gmailIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(
+            Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
+                .putExtra(Intent.EXTRA_EMAIL, arrayOf("proveedores@fibertel.com.pe"))
+        ))
 
-        if (intent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(chooser)
-        } else {
-            Toast.makeText(activity, "No hay aplicaciones de correo instaladas", Toast.LENGTH_SHORT).show()
-        }
+        startActivity(gmailIntent)
     }
 }

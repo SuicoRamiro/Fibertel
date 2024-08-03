@@ -9,9 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
-import com.example.fibertel.InformacionPersonalActivity
-import com.example.fibertel.LoginActivity
+import com.example.fibertel.activities.InformacionPersonalActivity
+import com.example.fibertel.activities.LoginActivity
 import com.example.fibertel.R
+import com.example.fibertel.activities.ServiciosDisponibles
 
 class ConfiguracionFragment : Fragment() {
 
@@ -25,6 +26,11 @@ class ConfiguracionFragment : Fragment() {
         // Configurar onClickListeners para cada opción
         view.findViewById<LinearLayout>(R.id.opcion_InformacionPersonal).setOnClickListener {
             val intent = Intent(activity, InformacionPersonalActivity::class.java)
+            startActivity(intent)
+        }
+
+        view.findViewById<LinearLayout>(R.id.opcion_ServiciosDisponibles).setOnClickListener {
+            val intent = Intent(activity, ServiciosDisponibles::class.java)
             startActivity(intent)
         }
 

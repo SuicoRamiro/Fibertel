@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="#F2F2F4"
+    android:background="#FFFFFF"
     tools:context=".fragments.FacturasFragment">
 
     <LinearLayout
@@ -12,14 +12,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fibertel Networks"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="25dp"
-            android:textStyle="bold"
-            android:textSize="25sp"/>
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/logo2"/>
 
         <!-- TextView para mostrar mensaje cuando no hay facturas -->
         <TextView

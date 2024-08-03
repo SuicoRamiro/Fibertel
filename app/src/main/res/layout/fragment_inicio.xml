@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F2F2F4"
+    android:background="#FFFFFF"
     android:padding="16dp"
     tools:context=".fragments.InicioFragment">
 
@@ -12,15 +12,81 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/logo2"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_factura_pendiente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_corners"
+        android:layout_margin="20dp"
+        android:visibility="gone"> <!-- Inicialmente oculto -->
+
         <TextView
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Factura Pendiente"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tvFacturaBalance"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monto a pagar"
+            android:textSize="22sp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fibertel Networks"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="25dp"
-            android:textStyle="bold"
-            android:textSize="25dp"/>
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_time2"
+                android:layout_marginEnd="10dp" />
+            <TextView
+                android:id="@+id/tvFechaVencimiento1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Primera F. de Vencimiento"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_time"
+                android:layout_marginEnd="10dp"/>
+            <TextView
+                android:id="@+id/tvFechaVencimiento2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Segunda F. de Vencimiento"
+                android:textSize="15sp" />
+        </LinearLayout>
+
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,12 +107,14 @@
                 android:layout_height="wrap_content"
                 android:text="Facturas no pagadas"
                 android:textColor="@android:color/black"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:fontFamily="@font/roboto"/>
 
             <TextView
                 android:id="@+id/tv_FacturaNoPagadas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="S/.0.00"
                 android:layout_alignParentEnd="true"
                 android:textColor="@android:color/black"
                 android:textSize="16dp" />
@@ -76,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="$0.00"
+                android:text="S/.0.00"
                 android:textColor="@android:color/black"
                 android:textSize="16dp" />
         </RelativeLayout>
@@ -106,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/label3"
                 android:layout_marginTop="8dp"
-                android:text="$0.00"
+                android:text="S/.0.00"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="16dp" />
 

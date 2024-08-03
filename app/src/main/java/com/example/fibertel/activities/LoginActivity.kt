@@ -1,4 +1,4 @@
-package com.example.fibertel
+package com.example.fibertel.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fibertel.ApiClient
+import com.example.fibertel.R
+import com.example.fibertel.network.ApiEndpoints
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response

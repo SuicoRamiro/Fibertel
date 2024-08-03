@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="#FFFFFF"
     android:padding="16dp"
-    tools:context=".activities.MisTicketsActivity">
+    tools:context=".activities.ServiciosDisponibles">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,30 +25,31 @@
             android:layout_marginEnd="8dp"/>
 
         <TextView
-            android:id="@+id/tv_titulo_reportar_problema"
+            android:id="@+id/tv_titulo_servicios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Mis Tickets"
-            android:textSize="24sp"
+            android:text="Servicios Disponibles"
+            android:textSize="24dp"
             android:textColor="@color/black"
             android:textStyle="bold"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewTickets"
+        android:id="@+id/recyclerViewPlanes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="16dp" />
 
     <TextView
-        android:id="@+id/tv_no_tickets"
+        android:id="@+id/tv_no_planes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No has reportado ningún ticket aún"
-        android:textSize="50dp"
+        android:text="No hay planes disponibles"
+        android:textSize="18dp"
         android:gravity="center"
         android:visibility="gone"
         android:layout_marginTop="16dp" />
+
 </LinearLayout>

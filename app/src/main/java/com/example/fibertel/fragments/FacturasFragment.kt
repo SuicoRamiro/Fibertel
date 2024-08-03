@@ -14,7 +14,7 @@ import com.example.fibertel.R
 import com.example.fibertel.model.Factura
 import com.example.fibertel.model.UserManager
 import com.example.fibertel.ApiClient
-import com.example.fibertel.ApiEndpoints
+import com.example.fibertel.network.ApiEndpoints
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -90,15 +90,18 @@ class FacturasFragment : Fragment() {
                         }
                     }
 
+                    // Ordenar las facturas en orden descendente por la fecha de emisión
+                    val sortedFacturas = fetchedFacturas.sortedByDescending { it.issued_at }
+
                     activity?.runOnUiThread {
-                        if (fetchedFacturas.isEmpty()) {
+                        if (sortedFacturas.isEmpty()) {
                             noFacturasTextView.visibility = View.VISIBLE
                             recyclerView.visibility = View.GONE
                         } else {
                             noFacturasTextView.visibility = View.GONE
                             recyclerView.visibility = View.VISIBLE
                             facturas.clear()
-                            facturas.addAll(fetchedFacturas)
+                            facturas.addAll(sortedFacturas)
                             facturaAdapter.notifyDataSetChanged()
                         }
                     }
@@ -106,6 +109,7 @@ class FacturasFragment : Fragment() {
             }
         })
     }
+
 
     private fun showMessage(message: String) {
         // Implementa tu método de mostrar mensajes aquí

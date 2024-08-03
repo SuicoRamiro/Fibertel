@@ -1,4 +1,4 @@
-package com.example.fibertel
+package com.example.fibertel.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +7,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fibertel.ApiClient
+import com.example.fibertel.R
+import com.example.fibertel.adapter.TicketAdapter
 import com.example.fibertel.model.Ticket
 import com.example.fibertel.model.UserManager
+import com.example.fibertel.network.ApiEndpoints
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -134,7 +138,8 @@ class MisTicketsActivity : AppCompatActivity() {
         val requestBody = FormBody.Builder()
             .add("state", "finalized")
             .build()
-        val request = ApiClient.createPatchRequest("${ApiEndpoints.TICKET_DETAILS}${ticket.id}", requestBody)
+        val request =
+            ApiClient.createPatchRequest("${ApiEndpoints.TICKET_DETAILS}${ticket.id}", requestBody)
 
         ApiClient.getClient().newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fibertel.R
-import com.example.fibertel.infoFactura
+import com.example.fibertel.activities.infoFactura
 import com.example.fibertel.model.Factura
 
 class FacturaAdapter(private val facturas: List<Factura>) : RecyclerView.Adapter<FacturaAdapter.FacturaViewHolder>() {
@@ -36,15 +36,15 @@ class FacturaAdapter(private val facturas: List<Factura>) : RecyclerView.Adapter
             tvNumeroFactura.text = "Factura N° ${factura.invoice_number}"
             tvVencimiento.text = "Vencimiento: ${factura.first_due_date}"
 
-            val balance = "$${factura.balance}"
-            val amount = "$${factura.amount}"
+            val balance = "S/.${factura.balance}"
+            val amount = "S/.${factura.amount}"
             val combinedText = "$balance/$amount"
 
             val spannable = SpannableString(combinedText)
 
             val balanceColor: Int = when (factura.state) {
                 "paid" -> Color.parseColor("#2BC9B0")
-                "pending" -> Color.RED
+                "pending" -> Color.parseColor("#ffcc0000")
                 else -> Color.BLACK
             }
 

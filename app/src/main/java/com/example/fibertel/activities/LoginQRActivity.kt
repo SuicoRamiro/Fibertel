@@ -1,4 +1,4 @@
-package com.example.fibertel
+package com.example.fibertel.activities
 
 import android.content.Context
 import android.content.Intent
@@ -8,10 +8,12 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fibertel.ApiClient
+import com.example.fibertel.R
 import com.google.zxing.integration.android.IntentIntegrator
 import com.example.fibertel.model.User
 import com.example.fibertel.model.UserManager
-import com.google.gson.Gson
+import com.example.fibertel.network.ApiEndpoints
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response

@@ -9,18 +9,20 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/background_gradient"
-    tools:context=".LoginActivity">
+    tools:context=".activities.LoginActivity">
 
     <ImageView
         android:src="@mipmap/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:contentDescription="Logo"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="24dp"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="60dp"
         app:cardElevation="4dp"
         app:cardCornerRadius="8dp"

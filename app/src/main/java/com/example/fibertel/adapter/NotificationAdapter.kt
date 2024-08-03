@@ -1,11 +1,12 @@
 // src/main/java/com/example/fibertel/NotificationAdapter.kt
-package com.example.fibertel
+package com.example.fibertel.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fibertel.R
 import com.example.fibertel.model.Ticket
 
 class NotificationAdapter(
